@@ -26,7 +26,7 @@
     <name>ts-permission</name>
     <groupId>com.trasen.permission</groupId>
     <artifactId>ts-permission</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <properties>
         <spring.version>4.1.6.RELEASE</spring.version>
