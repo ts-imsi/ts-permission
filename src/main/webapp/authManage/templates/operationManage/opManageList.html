@@ -1,0 +1,39 @@
+	<script type="text/javascript" src="/authManage/templates/operationManage/opManageList.js"></script>
+   	<script type="text/ng-template" id="myOpManage.html">
+       	<div class="modal-header">
+			<h3>{{title}}</h3>
+		</div>
+		<div class="modal-body" style="width:340px;">
+			<form name="myForm">
+				<table>
+					<tr>
+                        <td>
+                            <label>操作名(*):</label><input required type="text" ng-model="operationObj.name" value={{operationObj.name}} style="width:58%;" />
+                        </td>
+					</tr>
+					<tr>
+                        <td>
+                            <label>操作码(*):</label><input required type="text" ng-model="operationObj.opCode" value={{operationObj.opCode}} style="width:58%;" />
+                        </td>
+					</tr>
+                    <tr>
+                        <td>
+                            <label>排序(*):</label><input required type="text" ng-model="operationObj.px" value={{operationObj.px}} />
+                        </td>
+                    </tr>
+				</table>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button ng-click="save(operationObj)" class="btn btn-primary" ng-disabled="myForm.$invalid">保存</button>
+			<button ng-click="close()" class="btn btn-primary" >取消</button>
+		</div>
+	</script>
+	<div ng-controller="OperationCtrl">
+		<div class="btn-group">
+			<button type="button" class="btn" ng-click="insert('新增')"><i class="icon-plus-sign"></i>新增</button>
+			<button type="button" class="btn" ng-click="update('修改')"><i class="icon-edit"></i>编辑</button>
+			<button type="button" class="btn" ng-click="del()"><i class="icon-edit"></i>删除</button>
+		</div>
+	    <div class="gridStyle" ng-grid="gridOptions"></div>
+	</div>

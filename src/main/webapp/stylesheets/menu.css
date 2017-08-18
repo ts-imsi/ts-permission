@@ -1,0 +1,104 @@
+/* body { */
+/* 	font-family: 微软雅黑; */
+/* } */
+
+.well {
+	padding: 10px;
+}
+
+.row-fluid .span2 {
+	width: 250px;
+}
+
+.row-fluid .span10 {
+	width: 70%;
+}
+
+.menu-header {
+	font-family: tahoma,arial,verdana,sans-serif;
+	color: #15428B;
+	font-size: 14px;
+	line-height: 24px;
+	text-align: center;
+}
+
+.row-fluid [class*="span"] {
+	margin-left: 10px;
+}
+
+.container-fluid {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+/* -------菜单栏-------- */
+.hrefLink {
+	margin-left: 12px;
+}
+
+.index:hover {
+	background-color: #9BC9E7;
+}
+
+.accordion-heading .accordion-toggle {
+	display: table-cell;
+/* 	width: 75%; */
+}
+
+.thirdGrade .accordion-group {
+	border: 0;
+}
+
+.thirdGrade .accordion-toggle {
+	padding-top: 0px;
+}
+
+.thirdGrade .accordion {
+    margin-bottom: 0px;
+}
+
+/* ----- icon样式 ------ */
+.accordion-heading div{
+	display: table-cell;
+/* 	padding-left: 50px; */
+}
+
+/* .accordion-heading a {
+	width: 99px;
+} */
+
+icons i {
+	-webkit-transform: scale(0.6,0.6);
+	-moz-transform: scale(0.6,0.6);
+}
+
+icons i:hover {
+	cursor: pointer;
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+}
+
+.tab-pane label {
+	text-align: right;
+	display: block;
+	float: left;
+	width: 110px;
+	margin-left: 8px;
+}
+
+.addMenu table {
+	margin: auto;
+}
+
+.addMenuButton {
+	text-align: center;
+}
+
+.opCheckboxs {
+	margin-left: 14px;
+}
+
+.opCheckboxs input[type="checkbox"] {
+	margin-left: 10px;
+	margin-top: 0px;
+}

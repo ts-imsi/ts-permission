@@ -1,0 +1,52 @@
+<html ng-app="myApp">
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>人员管理</title>
+        <link rel="stylesheet" href="/stylesheets/angular/ng-grid.min.css" />
+        <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/menu.css" />
+        <link rel="stylesheet" href="/stylesheets/authGrid.css" />
+        <script type="text/javascript" src="/javascripts/jquery/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular-cookies.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/ng-grid-2.0.7.min.js"></script>
+        <script type="text/javascript" src="/javascripts/bootstrap/ui-bootstrap-tpls-0.6.1.min.js"></script>
+        <script type="text/javascript" src="/javascripts/services/BaseServices.js"></script>
+        <script type="text/javascript" src="/javascripts/services/MenuService.js"></script>
+        <script type="text/javascript" src="/javascripts/filters/displayFilter.js"></script>
+        <script type="text/javascript" src="/javascripts/directives/attrDirective.js"></script>
+        <script type="text/javascript" src="/javascripts/directives/loadRightDirective.js"></script>
+        <script type="text/javascript" src="/javascripts/util/Utils.js"></script>
+        <script type="text/javascript" src="/javascripts/util/RightEntity.js"></script>
+        <script type="text/javascript" src="/authManage/templates/userManage/operateUsers/UserManage.js"></script>
+        <script type="text/javascript" src="/javascripts/util/Entity.js"></script>
+    </head>
+    <body ng-controller="UserManage">
+    <script type="text/ng-template" id="searchByCondition.html">
+           	<div class="modal-header">
+    			<h3>详细查询</h3>
+    		</div>
+    		<div class="modal-body" style="width:350px;">
+    			<form name="myForm">
+    				<table>
+    					<tr>
+    						<td><label>名称:</label><input type="text" ng-model="obj.userName" /></td>
+    					</tr>
+    					<tr>
+    						<td><label>角色:</label><input type="text" ng-model="obj.roleName" /></td>
+    					</tr>
+    				</table>
+    			</form>
+    		</div>
+    		<div class="modal-footer">
+    			<button ng-click="queryByCond(obj)" class="btn btn-primary" ng-disabled="myForm.$invalid">查询</button>
+    			<button ng-click="close()" class="btn btn-primary" >取消</button>
+    		</div>
+    	</script>
+    <div class="btn-group">
+        <button type="button" class="btn" ng-click="query()"><i class="icon-film"></i>查询</button>
+        <button type="button" class="btn" ng-click="detailQuery('详细查询')"><i class="icon-zoom-in"></i>详细查询</button>
+    </div>
+    <div class="gridStyle" ng-grid="gridOptions"></div>
+    </body>
+</html>

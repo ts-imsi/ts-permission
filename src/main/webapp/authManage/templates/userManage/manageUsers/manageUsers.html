@@ -1,0 +1,80 @@
+<script type="text/javascript" src="/authManage/templates/userManage/manageUsers/manageUsers.js"></script>
+<script type="text/javascript" src="/javascripts/util/Entity.js"></script>
+<script type="text/ng-template" id="insertMannageUser.html">
+    <div class="modal-header">
+		<h3>{{title}}</h3>
+	</div>
+	<div class="modal-body" style="width: 400px;">
+		<p ng-init="operationObj.datasource = 'rights'"></p>
+		<form name="dataForm">
+			<table>
+				<tr>
+					<td><label>用户名称:</label><input type="text" required ng-model="operationObj.name" /></td>
+				</tr>
+				<tr>
+					<td><label>用户密码:</label><input type="password" required ng-model="operationObj.password" /></td>
+				</tr>
+				<tr>
+					<td><label>应用名称:</label><input type="text" required ng-model="operationObj.appId" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button ng-click="insertManageUser(operationObj)" class="btn btn-primary" ng-disabled="dataForm.$invalid">保存</button>
+		<button ng-click="close()" class="btn btn-primary" >取消</button>
+	</div>
+</script>
+<script type="text/ng-template" id="updateMannageUser.html">
+    <div class="modal-header">
+		<h3>{{title}}</h3>
+	</div>
+	<div class="modal-body" style="width: 400px;">
+		<p ng-init="selection.datasource = 'rights'"></p>
+		<form name="dataForm">
+			<table>
+				<tr>
+					<td><label>用户名称:</label><input type="text" required ng-model="selection.name" /></td>
+				</tr>
+				<tr>
+					<td><label>用户密码:</label><input type="password" required ng-model="selection.password" /></td>
+				</tr>
+				<tr>
+					<td><label>应用代码:</label><input type="text" required ng-model="selection.appId" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button ng-click="updateManageUser(selection)" class="btn btn-primary" ng-disabled="dataForm.$invalid">保存</button>
+		<button ng-click="close()" class="btn btn-primary" >取消</button>
+	</div>
+</script>
+<script type="text/ng-template" id="detailQuery.html">
+    <div class="modal-header">
+		<h3>{{title}}</h3>
+	</div>
+	<div class="modal-body" style="width:400px;">
+		<table>
+			<tr>
+				<td><label>用户名称:</label><input type="text" ng-model="operationObj.name_like"/></td>
+			</tr>
+			<tr>
+				<td><label>用户状态:</label><select ng-model="operationObj.status" right-Load="{type: 'user_status',op : 'query'}" /></td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button ng-click="save(operationObj)" class="btn btn-primary" >查询</button>
+		<button ng-click="close()" class="btn btn-primary" >取消</button>
+	</div>
+</script>
+<div ng-controller="manageUsersCtrl">
+	<div class="btn-group">
+		<button type="button" class="btn" ng-click="detailQuery('详细查询')"><i class="icon-zoom-in"></i>详细查询</button>
+
+	    <button type="button" class="btn" ng-click="disabled()"><i class="icon-edit"></i>变更／取消为操作管理员</button>
+
+	</div>
+	<div class="gridStyle" ng-grid="gridOptions"></div>
+</div>

@@ -1,0 +1,99 @@
+   	<script type="text/javascript" src="/authManage/templates/userManage/operateUsers/OperateUsersList.js"></script>
+   	<script type="text/javascript" src="/javascripts/util/Entity.js"></script>
+   	<script type="text/ng-template" id="insertOperationUsers.html">
+       	<div class="modal-header">
+			<h3>{{title}}</h3>
+		</div>
+		<div class="modal-body" style="width:320px;">
+			<form name="myForm">
+				<table>
+					<tr>
+						<td><label>用户名:</label><input type="text"  required ng-model="obj.name" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button ng-click="saveUser(obj)" class="btn btn-primary" ng-disabled="myForm.$invalid">保存</button>
+			<button ng-click="close()" class="btn btn-primary" >取消</button>
+		</div>
+	</script>
+   	<script type="text/ng-template" id="updateOperation.html">
+       	<div class="modal-header">
+			<h3>{{title}}</h3>
+		</div>
+		<div class="modal-body" style="width:500px;height:600px;">
+			<form name="myForm">
+				<table>
+					<tr>
+						<td><label style="margin-left:0px;text-align:left;width:70px;font-size:16px;">用户名称:</label><input ng-readonly="true" type="text" ng-model="selection.uid" value={{selection.name}} /></td>
+					</tr>
+					<tr>
+						<td colspan="2">关联角色:<hr style="margin:4px 0;"/></td>
+					</tr>
+					<!--<tr>
+						<td colspan="2">
+							<label style="margin-left:0px;text-align:left;width:100px;font-size:14px;">全选/取消&nbsp;&nbsp;:&nbsp;&nbsp;<input type="checkbox" style="margin:0 0 0;"></label>
+						</td>
+					</tr>-->
+					<tr>
+						<td style="float:left;">
+							<span ng-repeat="fri in roles">
+								<!--ng-click="toggleCheck(fri)"-->
+   								<input type='checkbox' value="{{fri.pkid}}" ng-checked = "fri.checked" name="selection.roleId"> {{fri.name}}</br>
+ 							</span>
+						</td>
+						<td>
+							<fieldset style="width: 200px;" ng-show = "false">
+								<legend  style="line-height:30px;font-siz
+e:14px;margin-bottom:8px;">选择范围</legend>
+								<table>
+									<tr><td>类型:<select ng-model="type" ng-options="c for c in scopeSigns">
+										<option value="">-- choose type --</option></select></td></tr>
+									<tr><td>范围:<select ng-model="scope" ng-options="b for b in scopeUrls">
+										<option value="">-- choose scope --</option></select></td></tr>
+								</table>
+							</fieldset>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button ng-click="saveRole(selection)" class="btn btn-primary">保存</button>
+			<button ng-click="close()" class="btn btn-primary" >取消</button>
+		</div>
+	</script>
+	<script type="text/ng-template" id="searchByCondition.html">
+       	<div class="modal-header">
+			<h3>{{title}}</h3>
+		</div>
+		<div class="modal-body" style="width:350px;">
+			<form name="myForm">
+				<table>
+					<tr>
+						<td><label>名称:</label><input type="text" ng-model="obj.userName" /></td>
+					</tr>
+					<tr>
+						<td><label>角色:</label><input type="text" ng-model="obj.roleName" /></td>						
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button ng-click="queryByCond(obj)" class="btn btn-primary" ng-disabled="myForm.$invalid">查询</button>
+			<button ng-click="close()" class="btn btn-primary" >取消</button>
+		</div>
+	</script>
+	<div ng-controller="OperateUsersListCtrl">
+    	<div class="btn-group">
+    		<button type="button" class="btn" ng-click="query()"><i class="icon-film"></i>查询</button>
+    		<button type="button" class="btn" ng-click="detailQuery('详细查询')"><i class="icon-zoom-in"></i>详细查询</button>
+    		<!--<button type="button" class="btn" ng-click="insert('新增用户')"><i class="icon-plus-sign"></i>新增</button>-->
+	        <button type="button" class="btn" ng-click="disabled()"><i class="icon-ban-circle"></i>禁用/取消</button>
+	        <button type="button" class="btn" ng-click="update('用户和角色关联')"><i class="icon-random"></i>关联</button>
+    	</div>
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+	</div>
+	
+	

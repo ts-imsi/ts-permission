@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 99%; 
+    height: 76%;
+}
+
+.modal-body {
+	font-family: "微软雅黑";
+}
+
+.modal-body radios {
+	font-size: 14px;
+}
+
+.modal-body label {
+	text-align: right;
+	display: block;
+	float: left;
+	width: 110px;
+	margin-left: 8px;
+}
+
+.modal-body input[type="radio"] {
+	margin-bottom: 10px;
+}
+
+.modal-body select {
+	width: 160px; 
+}
+
+.modal-body .dropdown-menu {
+	height: auto;
+	width: 214px;
+}
+
+/*-- tab页 --*/
+.tabbable li:hover {
+	cursor: pointer;
+}

@@ -1,0 +1,25 @@
+<script type="text/javascript" src="/authManage/templates/opAuthTree/opAuthCtrl.js"></script>
+<div class="container-fluid" ng-controller="OpAuthTreeCtrl">
+	<div class="row-fluid">
+		<div class="span2 well offset4">
+			<p class="menu-header">{{currentRoleName}}</p>
+			<accordion close-others="true">
+			
+				<accordion-group heading="{{group.head}}" ng-repeat="group in groups">
+					
+					<accordion close-others="true" class="thirdGrade">
+						<accordion-group heading="{{menu.head}}" ng-repeat="menu in group.subMenus">
+							<div ng-repeat="operation in menu.operations" class="opCheckboxs">
+								<input type="checkbox" ng-model="ops[operation.pkid]" />&nbsp;&nbsp;{{operation.name}}
+							</div>
+						</accordion-group>
+					</accordion>
+				</accordion-group>
+			</accordion>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<input type="button" value="保存" class="btn btn-primary" ng-click="saveOps(ops)" />
+		<input type="button" value="重置" class="btn btn-primary" ng-click="reset()" />
+	</div>
+</div>

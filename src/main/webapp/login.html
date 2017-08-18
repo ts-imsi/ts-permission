@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="login">
+	<head>
+	   	<meta charset="utf-8">
+		<title>权限系统登录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	   <!--	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">-->
+		<link href="/stylesheets/bootstrap/bootstrap.css" rel="stylesheet" />
+	   	<link href="/stylesheets/login.css" rel="stylesheet" />
+	   	<script type="text/javascript" src="/javascripts/jquery/jquery-1.8.2.min.js"></script>
+	   	<script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+	   	<script type="text/javascript" src="/javascripts/angular/angular-cookies.js"></script>
+	   	<script type="text/javascript" src="/javascripts/util/Utils.js"></script>
+	   	<script type="text/javascript" src="/login.js"></script>
+
+	</head>
+	<body ng-controller="LoginCtrl">
+		<div class="account-container stacked">
+			<div class="content" ng-init="getApps();">
+				<form action="/permissions/manage/mainLogin" method="get" id="loginForm">
+					<div class="login-fields">
+						<div><p style="font-size: 14px;">{{ msg || "使用您的权限帐户登录 " }}</p></div>
+						<div class="field">
+							<input type="text" ng-model="user.name" name="name" placeholder="用户名" class="form-control username-field"/>
+						</div>
+						<div class="field">
+							<input type="password" ng-model="user.password" name="password" placeholder="密码" class="form-control password-field"/>
+						</div>
+						<div class="field">
+							<select ng-model="user.appId" name="appId">
+                                <option value="0">请选择权限应用平台</option>
+                                <option ng-repeat="option in appInfo" ng-value="option.appId">{{option.appId}}</option>
+							</select>
+						</div>
+					</div>
+                    <button type="button" class="loginButton" ng-click="login(user)">登录</button>
+                </form>
+            </div>
+		</div>
+	</body>
+</html>

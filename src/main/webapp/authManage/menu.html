@@ -1,0 +1,85 @@
+<html ng-app="menu">  
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>权限管理</title>  
+        <link rel="stylesheet" href="/stylesheets/angular/ng-grid.min.css" />
+	    <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="/stylesheets/menu.css" />
+        <link rel="stylesheet" href="/stylesheets/authGrid.css" />
+	    
+        <script type="text/javascript" src="/javascripts/jquery/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/javascripts/angular/angular-cookies.js"></script>
+    	<script type="text/javascript" src="/javascripts/angular/ng-grid-2.0.7.min.js"></script>
+    	<script type="text/javascript" src="/javascripts/bootstrap/ui-bootstrap-tpls-0.6.1.min.js"></script>
+		<script type="text/javascript" src="/javascripts/services/BaseServices.js"></script>
+		<script type="text/javascript" src="/javascripts/services/MenuService.js"></script>
+		<script type="text/javascript" src="/javascripts/filters/displayFilter.js"></script>
+    	<script type="text/javascript" src="/javascripts/directives/attrDirective.js"></script>
+    	<script type="text/javascript" src="/javascripts/directives/loadRightDirective.js"></script>
+        <script type="text/javascript" src="/javascripts/util/Utils.js"></script>
+        <script type="text/javascript" src="/javascripts/util/RightEntity.js"></script>
+    	<script type="text/javascript" src="/authManage/menu.js"></script>
+    </head>
+
+	<body>
+		<div class="container-fluid" ng-controller="MenuCtrl">
+			<div class="row-fluid">
+				<div class="span2 well">
+					<label class="menu-header">功能菜单</label>
+					<accordion close-others="true">
+					
+						<accordion-group>
+							<accordion-heading>目录管理</accordion-heading>
+							<accordion-headicons>
+								<icons><i class='icon-plus' ng-click='addMenu()'></i><i class='icon-edit' ng-click='editMenu()'></i></icons>
+							</accordion-headicons>
+							
+							<accordion close-others="true" class="thirdGrade">
+								<accordion-group heading="{{group.head}}" ng-repeat="group in groups">
+									<accordion-headicons>
+										<icons><i class='icon-plus' ng-click='addMenu(group)'></i><i class='icon-minus' ng-click='delMenu(group.pkid)'></i><i class='icon-edit' ng-click='editMenu(group)'></i></icons>
+									</accordion-headicons>
+									<div ng-repeat="subMenu in group.subMenus" class="index">
+										<a href="#" ng-click="addTab(subMenu)" class="hrefLink">{{subMenu.head}}</a>
+									</div>
+								</accordion-group> 
+							</accordion>
+							
+						</accordion-group>
+						
+						<accordion-group heading="角色管理">
+							<accordion-headicons>
+								<icons><i class='icon-edit' ng-click='editRole()'></i></icons>
+							</accordion-headicons>
+							<div ng-repeat="role in roles" class="index">
+
+								<a href="#" ng-click="loadRoleOpsTree(role)" class="hrefLink">{{role.head}}</a>
+							</div>
+						</accordion-group>
+						
+						<accordion-group heading="用户管理">
+							<div ng-repeat="subMenu in userManage" class="index">
+								<a href="#" ng-click="addTab(subMenu)" class="hrefLink">{{subMenu.head}}</a>
+							</div>
+						</accordion-group>
+						
+					</accordion>
+				</div>
+				
+				<div class="span10 well">
+					<tabset>
+						<tab heading="欢迎">欢迎使用权限系统</tab> 
+						<tab ng-repeat="tab in tabs" active="tab.active" select="currentTab = tab">
+							<tab-heading>
+								{{tab.head}}
+								<i class="icon-remove" ng-click="remove(tab.head)"></i>
+							</tab-heading>
+							<ng-include src="tab.tabUrl" ></ng-include>
+						</tab>
+					</tabset>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<script type="text/javascript" src="/authManage/templates/operationManage/addOpMenu.js"></script>
+<div ng-controller="AddMenuCtrl" class="addMenu">
+	<form name="myForm" ng-submit="save(menuObj)">
+		<table>
+			<tr>
+				<td>
+					<label>目录名称(*):</label><input required type="text" ng-model="menuObj.name" />
+				</td>
+			</tr>
+			<tr ng-show="currentTab.pkid != 0">
+				<td>
+					<label>目录链接(*):</label><input type="text" ng-model="menuObj.url" />
+				</td>
+			</tr>
+            <tr>
+                <td><label>排序:</label><input required type="text" ng-model="menuObj.px" /></td>
+            </tr>
+		</table>
+		<hr>
+		<div class="addMenuButton">
+			<input type="submit" value="保存" class="btn btn-primary" />
+			<input type="reset" value="重置" class="btn btn-primary" />
+		</div>
+	</form>
+</div>
