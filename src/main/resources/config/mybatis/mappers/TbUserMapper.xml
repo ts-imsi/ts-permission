@@ -16,16 +16,16 @@
     <select id="getMenu" resultType="com.trasen.permission.model.OperationVo" parameterType="String">
         select pkid as pkid,parent_id as parentId,name as name,op_code as opCode,
         url as url,app_id as appId,user_id as userId,px as px
-        from t_operation where app_id=#{app_id} order by parent_id,px;
+        from tb_operation where app_id=#{app_id} order by parent_id,px;
     </select>
 
     <select id="getRoles" parameterType="String" resultType="com.trasen.permission.model.RoleVo">
-        select pkid,name,app_id as appId,user_id as userId,created,modified from t_role where app_id=#{app_id}
+        select pkid,name,app_id as appId,user_id as userId,created,modified from tb_role where app_id=#{app_id}
     </select>
 
     <select id="getRoleOps" parameterType="map" resultType="com.trasen.permission.model.RoleOperationVo">
         select pkid,app_id as appId,operation_id as operationId,role_id as roleId,
-        user_id as userId,created,modified from t_role_operation where role_id=#{roleId} and app_id = #{appId}
+        user_id as userId,created,modified from tb_role_operation where role_id=#{roleId} and app_id = #{appId}
     </select>
 
 

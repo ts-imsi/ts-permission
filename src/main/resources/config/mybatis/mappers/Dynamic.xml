@@ -7,7 +7,7 @@
         <selectKey resultType="Integer" keyProperty="pkid">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into t_operation (parent_id,name,url,app_id,user_id,px,created) values
+        insert into tb_operation (parent_id,name,url,app_id,user_id,px,created) values
         (#{parentId},#{name},#{url},#{appId},#{userId},#{px},#{created});
     </insert>
 
@@ -15,24 +15,24 @@
         <selectKey resultType="Integer" keyProperty="pkid">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into t_role (name,app_id,user_id,created) values
+        insert into tb_role (name,app_id,user_id,created) values
         (#{name},#{appId},#{userId},#{created});
     </insert>
 
     <delete id="delete_t_operation" parameterType="Integer">
-        delete from t_operation where pkid=#{pkid};
-        delete from t_operation where parent_id=#{pkid};
+        delete from tb_operation where pkid=#{pkid};
+        delete from tb_operation where parent_id=#{pkid};
     </delete>
 
     <delete id="delete_t_role" parameterType="Integer">
-        delete from t_role where pkid=#{pkid};
+        delete from tb_role where pkid=#{pkid};
     </delete>
     <update id="update_t_operation" parameterType="map">
-        update t_operation set name=#{name},px=#{px},url=#{url} where pkid=#{pkid};
+        update tb_operation set name=#{name},px=#{px},url=#{url} where pkid=#{pkid};
     </update>
 
     <update id="update_t_role" parameterType="map">
-        update t_role set name=#{name} where pkid=#{pkid};
+        update tb_role set name=#{name} where pkid=#{pkid};
     </update>
 
     <update id="update_t_user" parameterType="map">
@@ -43,8 +43,8 @@
         SELECT a.pkid,a.name,a.app_id AS appId,a.user_id AS userId,
         b.pkid as roleScopeId,b.name AS scopeName,
         b.scope_sign AS scopeSign,b.scope_url AS scopeUrl
-         FROM t_role a
-         LEFT JOIN t_role_scope b ON a.pkid = b.role_id and a.app_id = b.app_id
+         FROM tb_role a
+         LEFT JOIN tb_role_scope b ON a.pkid = b.role_id and a.app_id = b.app_id
          WHERE a.app_id = #{appId}
          <if test="name!=null">
           AND a.name LIKE '%${name}%'
@@ -59,8 +59,8 @@
     </select>
 
     <insert id="saveOrUpdateRoleOperation" parameterType="map">
-        delete from t_role_operation where role_id=#{roleId} and app_id=#{appId};
-        insert into t_role_operation (operation_id,role_id,app_id,created,modified)
+        delete from tb_role_operation where role_id=#{roleId} and app_id=#{appId};
+        insert into tb_role_operation (operation_id,role_id,app_id,created,modified)
         values
         <foreach collection="list" index="index" item="item" separator="," >
             (#{item},#{roleId},#{appId},now(),now())
@@ -75,8 +75,8 @@
         GROUP_CONCAT(c.name ORDER BY b.role_id ASC) as roleName ,
         a.display_name as displayName
         FROM t_user a
-        LEFT JOIN t_user_role b ON a.name = b.uid and a.app_id = b.app_id
-        LEFT JOIN t_role c ON c.pkid = b.role_id and b.app_id = c.app_id
+        LEFT JOIN tb_user_role b ON a.name = b.uid and a.app_id = b.app_id
+        LEFT JOIN tb_role c ON c.pkid = b.role_id and b.app_id = c.app_id
         WHERE 1=1
         AND a.app_id = #{appId} AND permission = 3
 
@@ -111,15 +111,15 @@
     </select>
 
     <select id="getRoles" parameterType="map" resultType="map">
-        SELECT pkid , name FROM t_role WHERE user_id != 0
+        SELECT pkid , name FROM tb_role WHERE user_id != 0
         <if test="permission!=null and permission!=1 and appId!=null">
             AND app_id = #{appId}
         </if>
     </select>
 
     <insert id="insert_t_user_role" parameterType="map">
-        delete from t_user_role where uid=#{uid} and app_id=#{appId};
-        insert into t_user_role (uid,role_id,app_id,user_id,created,modified)
+        delete from tb_user_role where uid=#{uid} and app_id=#{appId};
+        insert into tb_user_role (uid,role_id,app_id,user_id,created,modified)
         values
         <foreach collection="roleIds" index="index" item="item" separator="," >
             (#{uid},#{item},#{appId},#{userId},now(),now())
