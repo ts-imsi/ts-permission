@@ -8,7 +8,6 @@ function MenuCtrl($scope, $menu, $cookieStore,$window,$http) {
 	}
 	
     var appId = userInfo.app_id;
-
     // 获取操作管理菜单
     $menu.wrapMenu(appId, function (result) {
         $scope.orginMenuData = result;

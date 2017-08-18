@@ -8,24 +8,24 @@
     </select>
 
     <select id="loginValid" resultType="map" parameterType="map">
-        SELECT pkid,password,name,status,permission,app_id,user_id FROM t_user
+        SELECT pkid,password,name,status,permission,app_id,per_id FROM t_user
         WHERE name = #{name} AND app_id = #{app_id} AND status = 1 AND permission != 3 limit 1;
     </select>
 
 
     <select id="getMenu" resultType="com.trasen.permission.model.OperationVo" parameterType="String">
         select pkid as pkid,parent_id as parentId,name as name,op_code as opCode,
-        url as url,app_id as appId,user_id as userId,px as px
+        url as url,app_id as appId,operator as operator,px as px
         from tb_operation where app_id=#{app_id} order by parent_id,px;
     </select>
 
     <select id="getRoles" parameterType="String" resultType="com.trasen.permission.model.RoleVo">
-        select pkid,name,app_id as appId,user_id as userId,created,modified from tb_role where app_id=#{app_id}
+        select pkid,name,app_id as appId,operator as operator,created,updated from tb_role where app_id=#{app_id}
     </select>
 
     <select id="getRoleOps" parameterType="map" resultType="com.trasen.permission.model.RoleOperationVo">
         select pkid,app_id as appId,operation_id as operationId,role_id as roleId,
-        user_id as userId,created,modified from tb_role_operation where role_id=#{roleId} and app_id = #{appId}
+        operator as operator,created,updated from tb_role_operation where role_id=#{roleId} and app_id = #{appId}
     </select>
 
 

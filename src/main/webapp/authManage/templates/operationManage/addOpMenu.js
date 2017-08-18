@@ -4,7 +4,6 @@ function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
         var parentId = $scope.currentTab.pkid;
 
         var userInfo = $cookieStore.get("USER_INFO");
-
         var entity = new RightEntity("t_operation", menuObj,$http);
 
         entity.appId = userInfo.app_id;
