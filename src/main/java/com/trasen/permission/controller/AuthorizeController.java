@@ -1,10 +1,10 @@
 package com.trasen.permission.controller;
 
 import cn.trasen.core.entity.Result;
+import com.trasen.permission.common.VisitInfoHolder;
 import com.trasen.permission.model.MenuVo;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +23,9 @@ public class AuthorizeController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/menus/{perId}", method = RequestMethod.GET)
-    public Result getId(@PathVariable String perId) {
+    @RequestMapping(value = "/menus", method = RequestMethod.GET)
+    public Result getId() {
+        logger.info("===权限系统====["+ VisitInfoHolder.getUserId()+"]====");
         Result result = new Result();
         result.setMessage("查询成功");
         result.setStatusCode(1);
