@@ -97,6 +97,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
             entity.appId = scope.userInfo.app_id;
             entity.operator = scope.userInfo.pkid;
             entity.parentId = parentId;
+            entity.opCode=modalObj.operationObj.opCode;
             entity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.insert(function (result) {
                 if(result.success){
@@ -118,6 +119,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
             var pkid = menuObj.pkid;
             var entity = new RightEntity("t_operation", menuObj,$http);
             delete entity.subMenus;
+            entity.opCode=modalObj.operationObj.opCode;
             entity.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.update(function (result) {
                 if(result.success){

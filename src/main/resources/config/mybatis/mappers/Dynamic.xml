@@ -7,8 +7,8 @@
         <selectKey resultType="Integer" keyProperty="pkid">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into tb_operation (parent_id,name,url,app_id,operator,px,created) values
-        (#{parentId},#{name},#{url},#{appId},#{operator},#{px},#{created});
+        insert into tb_operation (parent_id,name,url,app_id,op_code,operator,px,created) values
+        (#{parentId},#{name},#{url},#{appId},#{opCode},#{operator},#{px},#{created});
     </insert>
 
     <insert id="insert_t_role" parameterType="map">
@@ -28,7 +28,7 @@
         delete from tb_role where pkid=#{pkid};
     </delete>
     <update id="update_t_operation" parameterType="map">
-        update tb_operation set name=#{name},px=#{px},url=#{url},updated=#{updated} where pkid=#{pkid};
+        update tb_operation set name=#{name},px=#{px},url=#{url},op_code=#{opCode},updated=#{updated} where pkid=#{pkid};
     </update>
 
     <update id="update_t_role" parameterType="map">
