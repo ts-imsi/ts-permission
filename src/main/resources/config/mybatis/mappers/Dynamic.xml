@@ -40,11 +40,8 @@
     </update>
 
     <select id="getRoleManages" parameterType="map" resultType="map">
-        SELECT a.pkid,a.name,a.app_id AS appId,a.user_id AS userId,
-        b.pkid as roleScopeId,b.name AS scopeName,
-        b.scope_sign AS scopeSign,b.scope_url AS scopeUrl
+        SELECT a.pkid,a.name,a.app_id AS appId,a.operator AS operator
          FROM tb_role a
-         LEFT JOIN tb_role_scope b ON a.pkid = b.role_id and a.app_id = b.app_id
          WHERE a.app_id = #{appId}
          <if test="name!=null">
           AND a.name LIKE '%${name}%'

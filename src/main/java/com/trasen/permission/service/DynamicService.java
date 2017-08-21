@@ -36,16 +36,16 @@ public class DynamicService {
                 case "update_t_operation" :
                     result = updateOperation(map);
                     break;
-                case "insert_t_role" :
+                case "insert_tb_role" :
                     result = insertRole(map);
                     break;
-                case "update_t_role" :
+                case "update_tb_role" :
                     result = updateRole(map);
                     break;
-                case "delete_t_role" :
+                case "delete_tb_role" :
                     result = deleteRole(map);
                     break;
-                case "saveOrUpdate_t_role_operation" :
+                case "saveOrUpdate_tb_role_operation" :
                     result = saveOrUpdateRoleOperation(map);
                     break;
                 case "update_t_user" :

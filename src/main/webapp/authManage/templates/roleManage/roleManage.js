@@ -1,14 +1,11 @@
 function roleManageCtrl($scope, $rootScope, $yunatGrid, $yunatModal, $cookieStore,$http) {
-    $rootScope.tableName = "t_role";
-    $scope.queryEntity = new RightEntity("t_role",null,$http);
+    $rootScope.tableName = "tb_role";
+    $scope.queryEntity = new RightEntity("tb_role",null,$http);
     $scope.userInfo = $cookieStore.get("USER_INFO");
     $yunatGrid.init({
         columnDefs: [
             { field: 'pkid', displayName: '角色编号'},
-            { field: 'name', displayName: '角色名称'},
-            { field: 'scopeName', displayName: '范围名称'},
-            { field: 'scopeSign', displayName: '范围标识'},
-            { field: 'scopeUrl', displayName: '范围链接'}
+            { field: 'name', displayName: '角色名称'}
         ]}, $scope);
     var param = {appId: $scope.userInfo.app_id};
     var entity = {
@@ -95,7 +92,7 @@ function roleManageCtrl($scope, $rootScope, $yunatGrid, $yunatModal, $cookieStor
     };
 
     function delRole(pkid) {
-        var role = new RightEntity('t_role',null,$http);
+        var role = new RightEntity('tb_role',null,$http);
         role.pkid = pkid;
         role.del(function (result) {
             if (result.success) {
@@ -113,7 +110,7 @@ var scopeControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid
     }
     $scope.title = modalObj.title;
     $scope.saveRole = function (operationObj) {
-        var role = new RightEntity("t_role", operationObj,$http);
+        var role = new RightEntity("tb_role", operationObj,$http);
         role.appId = modalObj.scope.userInfo.app_id;
         role.userId = modalObj.scope.userInfo.pkid;
         $http.post("/dynamic/execSql/getNameIsExist", angular.toJson(role)).success(function (cb) {
@@ -183,11 +180,11 @@ var scopeControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid
             role_scope.modified = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             role_scope.update(function (result) {
                 if (result.success) {
-                    $scope.updateCommon('t_role', $scope.selection);
+                    $scope.updateCommon('tb_role', $scope.selection);
                 }
             });
         } else {
-            $scope.updateCommon('t_role', $scope.selection);
+            $scope.updateCommon('tb_role', $scope.selection);
         }
     };
 
