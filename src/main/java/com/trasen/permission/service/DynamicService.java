@@ -84,7 +84,7 @@ public class DynamicService {
             result.put("msg","应用ID不能为空");
             return result;
         }
-        if(map.get("userId")==null){
+        if(map.get("operator")==null){
             result.put("success",false);
             result.put("msg","用户不能为空，请登录");
             return result;
@@ -155,7 +155,7 @@ public class DynamicService {
             result.put("msg","应用ID不能为空");
             return result;
         }
-        if(map.get("userId")==null){
+        if(map.get("operator")==null){
             result.put("success",false);
             result.put("msg","用户不能为空，请登录");
             return result;
@@ -274,12 +274,12 @@ public class DynamicService {
             result.put("msg","应用ID不能为空");
             return result;
         }
-        if(map.get("uid")==null){
+        if(map.get("userId")==null){
             result.put("success",false);
             result.put("msg","用户不能为空");
             return result;
         }
-        if(map.get("userId")==null){
+        if(map.get("operator")==null){
             result.put("success",false);
             result.put("msg","您为登录系统");
             return result;

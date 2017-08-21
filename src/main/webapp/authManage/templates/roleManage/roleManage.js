@@ -112,7 +112,7 @@ var scopeControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid
     $scope.saveRole = function (operationObj) {
         var role = new RightEntity("tb_role", operationObj,$http);
         role.appId = modalObj.scope.userInfo.app_id;
-        role.userId = modalObj.scope.userInfo.pkid;
+        role.operator = modalObj.scope.userInfo.pkid;
         $http.post("/dynamic/execSql/getNameIsExist", angular.toJson(role)).success(function (cb) {
             if (cb.data == 0) {
                 role.insert(function (result) {
@@ -135,7 +135,7 @@ var scopeControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid
         delete roleScopeEntity.scopeName;
         roleScopeEntity.appId = $scope.selection.appId;
         roleScopeEntity.roleId = $scope.selection.pkid;
-        roleScopeEntity.userId = $scope.selection.userId;
+        roleScopeEntity.operator = $scope.selection.userId;
         roleScopeEntity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
         roleScopeEntity.insert(function (result) {
             if (result.success) {
@@ -177,7 +177,7 @@ var scopeControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid
             role_scope.pkid = $scope.selection.roleScopeId;
             role_scope.roleId = $scope.selection.pkid;
             role_scope.name = $scope.selection.scopeName;
-            role_scope.modified = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
+            role_scope.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             role_scope.update(function (result) {
                 if (result.success) {
                     $scope.updateCommon('tb_role', $scope.selection);

@@ -96,7 +96,7 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
             entity.name = menuObj.head;
             entity.url = menuObj.url;
             entity.appId = scope.userInfo.app_id;
-            entity.userId = scope.userInfo.pkid;
+            entity.operator = scope.userInfo.pkid;
             entity.parentId = parentId;
             entity.px = menuObj.px;
             entity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
@@ -123,7 +123,7 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
             entity.name = menuObj.head;
             entity.url = menuObj.url;
             entity.px = menuObj.px;
-            entity.modified = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
+            entity.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.update(function (result) {
                 if(result.success){
                     Utils.extendOverride(scope.orginMenuData[parentId][pkid], menuObj);

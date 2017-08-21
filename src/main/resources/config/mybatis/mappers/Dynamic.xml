@@ -28,11 +28,11 @@
         delete from tb_role where pkid=#{pkid};
     </delete>
     <update id="update_t_operation" parameterType="map">
-        update tb_operation set name=#{name},px=#{px},url=#{url} where pkid=#{pkid};
+        update tb_operation set name=#{name},px=#{px},url=#{url},updated=#{updated} where pkid=#{pkid};
     </update>
 
     <update id="update_t_role" parameterType="map">
-        update tb_role set name=#{name} where pkid=#{pkid};
+        update tb_role set name=#{name},updated=#{updated} where pkid=#{pkid};
     </update>
 
     <update id="update_t_user" parameterType="map">
@@ -57,16 +57,17 @@
 
     <insert id="saveOrUpdateRoleOperation" parameterType="map">
         delete from tb_role_operation where role_id=#{roleId} and app_id=#{appId};
-        insert into tb_role_operation (operation_id,role_id,app_id,created,modified)
+        insert into tb_role_operation (operation_id,role_id,app_id,operator,created,updated)
         values
         <foreach collection="list" index="index" item="item" separator="," >
-            (#{item},#{roleId},#{appId},now(),now())
+            (#{item},#{roleId},#{appId},#{operator},now(),now())
         </foreach>
 
     </insert>
 
     <sql id="user_sql">
         SELECT a.name ,a.per_id as perId,a.app_id AS appId,a.permission,
+        a.pkid as pkid,
         (CASE a.status WHEN 0 THEN '禁用' ELSE '正常' END)  AS status,
         GROUP_CONCAT(b.role_id ORDER BY b.role_id ASC) AS roleId,
         GROUP_CONCAT(c.name ORDER BY b.role_id ASC) as roleName ,
@@ -108,18 +109,18 @@
     </select>
 
     <select id="getRoles" parameterType="map" resultType="map">
-        SELECT pkid , name FROM tb_role WHERE user_id != 0
+        SELECT pkid , name FROM tb_role WHERE operator != 0
         <if test="permission!=null and permission!=1 and appId!=null">
             AND app_id = #{appId}
         </if>
     </select>
 
     <insert id="insert_t_user_role" parameterType="map">
-        delete from tb_user_role where user_id=#{uid} and app_id=#{appId};
-        insert into tb_user_role (user_id,role_id,app_id,user_id,created,modified)
+        delete from tb_user_role where user_id=#{userId} and app_id=#{appId};
+        insert into tb_user_role (role_id,app_id,user_id,operator,created,updated)
         values
         <foreach collection="roleIds" index="index" item="item" separator="," >
-            (#{user_id},#{item},#{appId},#{userId},now(),now())
+            (#{item},#{appId},#{userId},#{operator},now(),now())
         </foreach>
     </insert>
 

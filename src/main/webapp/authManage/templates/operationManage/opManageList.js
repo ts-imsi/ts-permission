@@ -95,7 +95,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
         if (~title.indexOf("新增")) {
             var entity = new RightEntity("t_operation", menuObj,$http);
             entity.appId = scope.userInfo.app_id;
-            entity.userId = scope.userInfo.pkid;
+            entity.operator = scope.userInfo.pkid;
             entity.parentId = parentId;
             entity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.insert(function (result) {
@@ -118,7 +118,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
             var pkid = menuObj.pkid;
             var entity = new RightEntity("t_operation", menuObj,$http);
             delete entity.subMenus;
-            entity.modified = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
+            entity.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.update(function (result) {
                 if(result.success){
                     Utils.extendOverride(scope.orginMenuData[parentId][pkid], menuObj);

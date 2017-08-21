@@ -5,6 +5,7 @@ function OperateUsersListCtrl($scope, $rootScope, $yunatGrid, $yunatModal, $cook
 
     $yunatGrid.init({
         columnDefs: [
+            {field: 'pkid', displayName: '用户ID', visible: true},
             {field: 'name', displayName: '用户名', visible: true},
             {field: 'displayName', displayName: '姓名', visible: true},
             {field: 'roleName', displayName: '角色', visible: true},
@@ -137,12 +138,12 @@ var roleControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid,
     $scope.saveUser = function (obj) {
         var user = new RightEntity('t_user', obj,$http);
         user.status = 1;
-        user.userId = modalObj.scope.userInfo.pkid;
+        user.operator = modalObj.scope.userInfo.pkid;
         user.appId = modalObj.scope.userInfo.app_id;
         user.permission = 3;
         var currentDate = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
         user.created = currentDate;
-        user.modified = currentDate;
+        user.updated = currentDate;
         $http.post("/dynamic/execSql/getNameIsExist", angular.toJson(user)).success(function (cb) {
             if (cb.data[0].count > 0) {
                 alert("用户名已存在,请重新输入");
@@ -199,7 +200,7 @@ var roleControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid,
 
     $scope.saveRole = function (selection) {
         var role = new RightEntity('t_user_role', selection,$http);
-        role.uid = selection.name;
+        role.userId =  modalObj.selection.pkid;
         delete role.displayName;
         delete role.status;
         delete role.name;
@@ -213,6 +214,7 @@ var roleControl = function ($scope, $modalInstance, modalObj, $http, $yunatGrid,
         });
 
         role.roleIds = roles;
+        role.operator = modalObj.scope.userInfo.pkid;
         role.insert(function (result) {
             if (result.success) {
                 modalObj.scope.mySelection[0] = null;

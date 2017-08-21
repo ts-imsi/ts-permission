@@ -1,7 +1,7 @@
 function OpAuthTreeCtrl($scope, $http, $cookieStore, $filter) {
 
     var appId = $cookieStore.get("USER_INFO").app_id;
-
+    var operator = $cookieStore.get("USER_INFO").operator;
     $scope.$watch('currentRoleId', function (newVal, oldVal) {
         if (newVal !== oldVal) {
             _getRoleOps(newVal, appId);
@@ -35,10 +35,12 @@ function OpAuthTreeCtrl($scope, $http, $cookieStore, $filter) {
         /*
          ng-model绑定checkbox时，当checkbox选中时ng-model绑定的值为true,反之为false
          */
-        var entity = new RightEntity("t_role_operation",null,$http);
+        var entity = new RightEntity("tb_role_operation",null,$http);
         entity.roleId = currentRoleId;
         entity.appId = appId;
         entity.condition = ops;
+        entity.operator=operator;
+        console.log(entity.operator);
         entity.saveOrUpdate(function (result) {
             alert(result.msg);
         });

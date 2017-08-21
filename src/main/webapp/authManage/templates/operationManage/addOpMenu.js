@@ -7,7 +7,7 @@ function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
         var entity = new RightEntity("t_operation", menuObj,$http);
 
         entity.appId = userInfo.app_id;
-        entity.userId = userInfo.pkid;
+        entity.operator = userInfo.pkid;
         entity.parentId = parentId;
         entity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
         entity.insert(function (result) {
