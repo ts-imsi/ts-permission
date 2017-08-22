@@ -17,7 +17,7 @@ import java.util.List;
  * Created by zhangxiahui on 17/8/21.
  */
 @Controller
-@RequestMapping("authorize")
+@RequestMapping("ts-authorize")
 public class AuthorizeController {
 
     Logger logger = Logger.getLogger(AuthorizeController.class);
