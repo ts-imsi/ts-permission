@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trasen.permission.dao.SubordinateMapper">
+
+    <select id="selectTbperson" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
+        select * from tb_personnel per,t_user tu  where per.per_id=tu.per_id and tu.pkid=#{userId}
+    </select>
+
+    <select id="selectSubordinate" parameterType="java.util.Map" resultType="com.trasen.permission.model.UserRoleVo">
+        select * from tb_user_role where  user_id='2' and (role_id='6' or  role_id='7')and app_id='ts-imis'
+    </select>
+    <select id="selectSubordinateOrgUser" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
+      select distinct  per.* from tb_personnel per where  per.dep_id in (#{depId})
+    </select>
+    <select id="selectTagPerson" parameterType="String" resultType="com.trasen.permission.model.TbTagPersonnel">
+        select tag.pkid,tag.tag_id,tag.tag_name,tag.work_num from tb_tag_personnel tag,tb_personnel per,t_user tu where tag.work_num=per.work_num and tu.per_id=per.per_id and tu.pkid=#{userId}
+    </select>
+    
+    <select id="selectTagCodePerson" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
+        select distinct per.* from tb_tag_personnel tag,tb_personnel per where per.work_num=tag.work_num and tag.tag_id in(#{TagId})
+    </select>
+    
+</mapper>
