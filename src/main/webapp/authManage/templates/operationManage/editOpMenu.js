@@ -106,7 +106,6 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
         var typeName="";
         var typeCode="";
         alert(typeDict_ls);
-        alert(typeDict_ls.code);
         if(typeDict_ls!=null&&typeDict_ls!=""){
             typeCode=typeDict_ls.code;
             if(typeDict_ls.code==1){
