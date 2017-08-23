@@ -31,8 +31,8 @@ public class AuthorizeController {
     private SubordinateService subordinateService;
 
     @ResponseBody
-    @RequestMapping(value = "/menus", method = RequestMethod.GET)
-    public Result getMenus() {
+    @RequestMapping(value = "/{appId}/menus", method = RequestMethod.GET)
+    public Result getMenus(@PathVariable String appId) {
         logger.info("===权限系统:获取菜单权限====["+ VisitInfoHolder.getUserId()+"]====");
         Result result = new Result();
         result.setMessage("查询成功");
@@ -75,8 +75,8 @@ public class AuthorizeController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/operList/{state}", method = RequestMethod.GET)
-    public Result getOperList(@PathVariable String state) {
+    @RequestMapping(value = "/{appId}/operList/{state}", method = RequestMethod.GET)
+    public Result getOperList(@PathVariable String appId,String state) {
         logger.info("===权限系统:获取页面操作权限====["+ VisitInfoHolder.getUserId()+"]====["+state+"]===");
         Result result = new Result();
         result.setMessage("查询成功");
