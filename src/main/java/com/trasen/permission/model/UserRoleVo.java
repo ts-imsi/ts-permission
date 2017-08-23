@@ -15,10 +15,12 @@ import java.util.Date;
 @Setter
 public class UserRoleVo {
     private String pkid;
-    private String role_id;// 角色ID',
-    private String app_id;// 应用ID',
-    private String user_id;// 用户ID',
+    private String role_id;// 角色ID
+    private String app_id;// 应用ID
+    private String user_id;// 用户ID
     private String operator;
     private Date created;
     private Date updated;
+
+    private String name;
 }

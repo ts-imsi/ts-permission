@@ -3,7 +3,10 @@ package com.trasen.permission.controller;
 import cn.trasen.core.entity.Result;
 import com.trasen.permission.common.VisitInfoHolder;
 import com.trasen.permission.model.MenuVo;
+import com.trasen.permission.model.TbPersonnel;
+import com.trasen.permission.service.SubordinateService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhangxiahui on 17/8/21.
@@ -22,6 +27,8 @@ public class AuthorizeController {
 
     Logger logger = Logger.getLogger(AuthorizeController.class);
 
+    @Autowired
+    private SubordinateService subordinateService;
 
     @ResponseBody
     @RequestMapping(value = "/menus", method = RequestMethod.GET)
@@ -106,6 +113,21 @@ public class AuthorizeController {
         result.setObject(list);
         return result;
     }
+
+    @ResponseBody
+    @RequestMapping(value="/getSubordinateList", method = RequestMethod.GET)
+    public Result getSubordinateList(){
+        Result result = new Result();
+        Map<String,String> param=new HashMap<String,String>();
+        param.put("userId","3");
+        param.put("appId","ts-imis");
+        List<TbPersonnel> tbPersonnelList= subordinateService.getSubordinateList(param);
+        System.out.println(tbPersonnelList.size());
+        result.setObject(tbPersonnelList);
+        result.setSuccess(true);
+        return result;
+    }
+
 
 
 

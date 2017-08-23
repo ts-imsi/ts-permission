@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,24 +40,23 @@ public class SubordinateService {
             int userRole_org=0,userRole_tag=0;
             for(int i=0;i<userRoleVoList.size();i++){
                 //组织机构下属角色
-                if(userRoleVoList.get(i).getRole_id().equals("6")){
+                if(userRoleVoList.get(i).getName().equals("组织架构下属")){
                     userRole_org=1;
                 }
                 //标签下属角色
-                if(userRoleVoList.get(i).getRole_id().equals("7")){
+                if(userRoleVoList.get(i).getName().equals("标签下属")){
                     userRole_tag=1;
                 }
             }
-
             if(userRole_org==1&&userRole_tag==0){
                 logger.info("该用户只有组织机构下属角色");
-                List<TbPersonnel> tbPersonnelList=subordinateMapper.selectSubordinateOrgUser(tbPersonnel.getDepId());
+                List<TbPersonnel> tbPersonnelList=subordinateMapper.selectSubordinateOrgTreeUser(tbPersonnel.getDepId());
                 return tbPersonnelList;
             }else if(userRole_org==0&&userRole_tag==1){
                 List<TbPersonnel> tbTag_PersonnelList=getTagList(userId);
                 return tbTag_PersonnelList;
             }else{
-                List<TbPersonnel> tbTag_PersonnelList=subordinateMapper.selectSubordinateOrgUser(tbPersonnel.getDepId());
+                List<TbPersonnel> tbTag_PersonnelList=subordinateMapper.selectSubordinateOrgTreeUser(tbPersonnel.getDepId());
                 List<TbPersonnel> tbDept_PersonnelList=getTagList(userId);
                 if(tbTag_PersonnelList!=null&&tbDept_PersonnelList==null){
                     logger.info("tbDept_PersonnelList为空");
@@ -67,14 +67,20 @@ public class SubordinateService {
                     return tbDept_PersonnelList;
                 }
                 if(tbTag_PersonnelList!=null&&tbDept_PersonnelList!=null){
+                    List<TbPersonnel> tbTag_DeptPersonnelList=new ArrayList<>();
+                    tbTag_DeptPersonnelList.addAll(tbDept_PersonnelList);
                     for(int i=0;i<tbTag_PersonnelList.size();i++){
+                        boolean existence=false;
                         for(int j=0;j<tbDept_PersonnelList.size();j++){
-                            if(!tbTag_PersonnelList.get(i).getWorkNum().equals(tbDept_PersonnelList.get(j).getWorkNum())){
-                                tbTag_PersonnelList.add(tbDept_PersonnelList.get(j));
+                            if(tbTag_PersonnelList.get(i).getWorkNum().equals(tbDept_PersonnelList.get(j).getWorkNum())){
+                                existence=true;
                             }
                         }
+                        if(!existence){
+                            tbTag_DeptPersonnelList.add(tbTag_PersonnelList.get(i));
+                        }
                     }
-                    return tbTag_PersonnelList;
+                    return tbTag_DeptPersonnelList;
                 }
             }
         }
@@ -100,14 +106,16 @@ public class SubordinateService {
         //项目标签
         List<TbPersonnel> tbPerTag_list=null;
         List<TbPersonnel> tbPerDept_list=null;
-        if(Tag.equals("")){
+        if(!Tag.equals("")){
             Tag = Tag.substring(0,Tag.length() - 1);
-             tbPerTag_list=subordinateMapper.selectTagCodePerson(Tag);
+            String[] tags=Tag.split(",");
+             tbPerTag_list=subordinateMapper.selectTagCodePerson(tags);
         }
         //部门标签
-        if(deptTag.equals("")){
+        if(!deptTag.equals("")){
             deptTag=deptTag.substring(0,deptTag.length() - 1);
-             tbPerDept_list=subordinateMapper.selectSubordinateOrgUser(deptTag);
+            String[] deptTags=deptTag.split(",");
+             tbPerDept_list=subordinateMapper.selectSubordinateOrgUser(deptTags);
         }
         if(tbPerTag_list==null&&tbPerDept_list==null){
             logger.info("userRole_tag==1时，tbPerTag_list，tbPerDept_list为空");
@@ -122,14 +130,18 @@ public class SubordinateService {
             return tbPerDept_list;
         }
         if(tbPerTag_list!=null&&tbPerDept_list!=null){
+            List<TbPersonnel> tbTag_DeptPersonnelList=new ArrayList<>();
+            tbTag_DeptPersonnelList.addAll(tbPerDept_list);
             for(int i=0;i<tbPerTag_list.size();i++){
+                boolean existence=false;
                 for(int j=0;j<tbPerDept_list.size();j++){
-                    if(!tbPerTag_list.get(i).getWorkNum().equals(tbPerDept_list.get(j).getWorkNum())){
-                        tbPerTag_list.add(tbPerDept_list.get(j));
+                    if(tbPerTag_list.get(i).getWorkNum().equals(tbPerDept_list.get(j).getWorkNum())){
+                        existence=true;
                     }
                 }
+                if(!existence) tbTag_DeptPersonnelList.add(tbPerTag_list.get(i));
             }
-            return tbPerTag_list;
+            return tbTag_DeptPersonnelList;
         }
         return null;
     }

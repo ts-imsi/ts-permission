@@ -16,9 +16,10 @@ import java.util.Map;
 public interface SubordinateMapper {
     public TbPersonnel selectTbperson(String userId);
     public List<UserRoleVo> selectSubordinate(Map<String,String> params);
-    public List<TbPersonnel> selectSubordinateOrgUser(String depId);
+    public List<TbPersonnel> selectSubordinateOrgUser(String[] depId);
     public List<TbTagPersonnel> selectTagPerson(String userId);
-    public List<TbPersonnel> selectTagCodePerson(String TagId);
+    public List<TbPersonnel> selectTagCodePerson(String[] TagId);
+    public List<TbPersonnel> selectSubordinateOrgTreeUser(String deptId);
 
 
 }
