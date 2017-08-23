@@ -8,17 +8,28 @@
     </select>
 
     <select id="selectSubordinate" parameterType="java.util.Map" resultType="com.trasen.permission.model.UserRoleVo">
-        select * from tb_user_role where  user_id='2' and (role_id='6' or  role_id='7')and app_id='ts-imis'
+        select tur.*,ro.name from tb_user_role tur,tb_role ro where  ro.pkid=tur.role_id and tur.user_id=#{userId} and (ro.`name`='组织架构下属' or  ro.`name`='标签下属') and ro.app_id=#{appId}
     </select>
-    <select id="selectSubordinateOrgUser" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-      select distinct  per.* from tb_personnel per where  per.dep_id in (#{depId})
+    <select id="selectSubordinateOrgUser"  resultType="com.trasen.permission.model.TbPersonnel">
+      select distinct  per.* from tb_personnel per where  per.dep_id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+        #{item}
+        </foreach>
     </select>
+
+    <select id="selectSubordinateOrgTreeUser" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
+        select distinct  per.* from tb_personnel per where  per.dep_id=#{deptId}
+    </select>
+
     <select id="selectTagPerson" parameterType="String" resultType="com.trasen.permission.model.TbTagPersonnel">
         select tag.pkid,tag.tag_id,tag.tag_name,tag.work_num from tb_tag_personnel tag,tb_personnel per,t_user tu where tag.work_num=per.work_num and tu.per_id=per.per_id and tu.pkid=#{userId}
     </select>
     
     <select id="selectTagCodePerson" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-        select distinct per.* from tb_tag_personnel tag,tb_personnel per where per.work_num=tag.work_num and tag.tag_id in(#{TagId})
+        select distinct per.* from tb_tag_personnel tag,tb_personnel per where per.work_num=tag.work_num and tag.tag_id in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
     
 </mapper>
