@@ -4,6 +4,7 @@ import com.trasen.permission.dao.SubordinateMapper;
 import com.trasen.permission.model.TbPersonnel;
 import com.trasen.permission.model.TbTagPersonnel;
 import com.trasen.permission.model.UserRoleVo;
+import com.trasen.permission.utils.OpenCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,11 +41,11 @@ public class SubordinateService {
             int userRole_org=0,userRole_tag=0;
             for(int i=0;i<userRoleVoList.size();i++){
                 //组织机构下属角色
-                if(userRoleVoList.get(i).getName().equals("组织架构下属")){
+                if(userRoleVoList.get(i).getOpCode().equals(OpenCodeUtil.SUB_DEPT)){
                     userRole_org=1;
                 }
                 //标签下属角色
-                if(userRoleVoList.get(i).getName().equals("标签下属")){
+                if(userRoleVoList.get(i).getOpCode().equals(OpenCodeUtil.SUB_TAG)){
                     userRole_tag=1;
                 }
             }

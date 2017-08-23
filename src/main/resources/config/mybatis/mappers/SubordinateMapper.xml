@@ -8,17 +8,24 @@
     </select>
 
     <select id="selectSubordinate" parameterType="java.util.Map" resultType="com.trasen.permission.model.UserRoleVo">
-        select tur.*,ro.name from tb_user_role tur,tb_role ro where  ro.pkid=tur.role_id and tur.user_id=#{userId} and (ro.`name`='组织架构下属' or  ro.`name`='标签下属') and ro.app_id=#{appId}
+        SELECT
+	    tur.*,oper.op_code
+        FROM
+	    tb_user_role tur
+        LEFT JOIN tb_role_operation ro_op ON ro_op.role_id = tur.role_id
+        LEFT JOIN tb_operation oper ON ro_op.operation_id=oper.pkid
+        WHERE
+        tur.user_id=#{userId} and  tur.app_id=#{appId} and (oper.op_code=#{sub_tag} or oper.op_code=#{sub_dept})
     </select>
     <select id="selectSubordinateOrgUser"  resultType="com.trasen.permission.model.TbPersonnel">
-      select distinct  per.* from tb_personnel per where  per.dep_id in
-        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-        #{item}
+      select distinct  per.* from tb_personnel per where per.tag_code like CONCAT('%','PERSON','%')
+        <foreach item="item" index="index" collection="array">
+           OR per.tag_code like CONCAT('%',#{item},'%')
         </foreach>
     </select>
 
     <select id="selectSubordinateOrgTreeUser" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-        select distinct  per.* from tb_personnel per where  per.dep_id=#{deptId}
+        select distinct  per.* from tb_personnel per where  per.tag_code like CONCAT('%',#{deptId},'%')
     </select>
 
     <select id="selectTagPerson" parameterType="String" resultType="com.trasen.permission.model.TbTagPersonnel">
