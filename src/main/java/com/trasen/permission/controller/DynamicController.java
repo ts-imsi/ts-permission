@@ -2,7 +2,9 @@ package com.trasen.permission.controller;/**
  * Created by zhangxiahui on 15/3/19.
  */
 
+import com.trasen.permission.model.OpenCode;
 import com.trasen.permission.service.DynamicService;
+import com.trasen.permission.utils.OpenCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,6 +174,29 @@ public class DynamicController {
         result.put("msg","");
         List<Map<String,Object>> list = dynamicService.getUserList(map);
         result.put("data", list);
+        return result;
+    }
+
+    /**
+     * 获取OpenCode
+     *
+     * @param map
+     * @return map
+     */
+    @ResponseBody
+    @RequestMapping(value = "/execSql/openCodeList", method = RequestMethod.POST)
+    public Map<String, Object> getUserList(){
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("success", true);
+        result.put("msg","");
+        List<String> list = OpenCodeUtil.getOpenCodeList();
+        List<OpenCode> openCodeList=new ArrayList<OpenCode>();
+        for(String opencode : list){
+            OpenCode openCode=new OpenCode();
+            openCode.setOpenCode(opencode);
+            openCodeList.add(openCode);
+        }
+        result.put("data", openCodeList);
         return result;
     }
 
