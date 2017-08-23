@@ -3,6 +3,7 @@ package com.trasen.permission.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,5 +18,7 @@ public class MenuVo {
     private String name;
     private String url;
     private String opCode;
-    private List<MenuVo> childrens;
+    private String icon;
+    private String translate;
+    private List<MenuVo> childrens = new ArrayList<>();
 }
