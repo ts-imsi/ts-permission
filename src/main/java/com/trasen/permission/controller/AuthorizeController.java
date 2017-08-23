@@ -4,6 +4,7 @@ import cn.trasen.core.entity.Result;
 import com.trasen.permission.common.VisitInfoHolder;
 import com.trasen.permission.model.MenuVo;
 import com.trasen.permission.model.TbPersonnel;
+import com.trasen.permission.service.AuthorizeService;
 import com.trasen.permission.service.SubordinateService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AuthorizeController {
     @Autowired
     private SubordinateService subordinateService;
 
+    @Autowired
+    private AuthorizeService authorizeService;
+
     @ResponseBody
     @RequestMapping(value = "/{appId}/menus", method = RequestMethod.GET)
     public Result getMenus(@PathVariable String appId) {
@@ -38,78 +42,20 @@ public class AuthorizeController {
         result.setMessage("查询成功");
         result.setStatusCode(1);
         result.setSuccess(true);
-        List<MenuVo> list = new ArrayList<>();
-        MenuVo menuVo1 = new MenuVo();
-        menuVo1.setPkid(1);
-        menuVo1.setName("考勤管理");
-        menuVo1.setUrl("attence");
-
-        MenuVo menuVo11 = new MenuVo();
-        menuVo11.setPkid(2);
-        menuVo11.setParentId(1);
-        menuVo11.setName("考勤设置");
-        menuVo11.setUrl("app.note");
-
-        MenuVo menuVo12 = new MenuVo();
-        menuVo12.setPkid(3);
-        menuVo12.setParentId(1);
-        menuVo12.setName("考勤异常");
-        menuVo12.setUrl("app.attenceList");
-
-        MenuVo menuVo13 = new MenuVo();
-        menuVo13.setPkid(4);
-        menuVo13.setParentId(1);
-        menuVo13.setName("考勤统计");
-        menuVo13.setUrl("app.contact");
-        List<MenuVo> list1 = new ArrayList<>();
-        list1.add(menuVo11);
-        list1.add(menuVo12);
-        list1.add(menuVo13);
-
-        menuVo1.setChildrens(list1);
-
-        list.add(menuVo1);
-
+        List<MenuVo> list = authorizeService.getMenus(VisitInfoHolder.getUserId(),appId);
         result.setObject(list);
         return result;
     }
 
     @ResponseBody
     @RequestMapping(value = "/{appId}/operList/{state}", method = RequestMethod.GET)
-    public Result getOperList(@PathVariable String appId,String state) {
+    public Result getOperList(@PathVariable String appId,@PathVariable String state) {
         logger.info("===权限系统:获取页面操作权限====["+ VisitInfoHolder.getUserId()+"]====["+state+"]===");
         Result result = new Result();
         result.setMessage("查询成功");
         result.setStatusCode(1);
         result.setSuccess(true);
-        List<MenuVo> list = new ArrayList<>();
-        MenuVo menuVo1 = new MenuVo();
-        menuVo1.setPkid(1);
-        menuVo1.setName("列表展示");
-        menuVo1.setOpCode("aaa");
-
-
-        MenuVo menuVo2 = new MenuVo();
-        menuVo2.setPkid(2);
-        menuVo2.setName("查询");
-        menuVo2.setOpCode("app.note");
-
-        MenuVo menuVo3 = new MenuVo();
-        menuVo3.setPkid(3);
-        menuVo3.setName("导出");
-        menuVo3.setOpCode("app.attenceList");
-
-        MenuVo menuVo4 = new MenuVo();
-        menuVo4.setPkid(4);
-        menuVo4.setName("删除");
-        menuVo4.setOpCode("app.contact");
-
-
-        list.add(menuVo1);
-        list.add(menuVo2);
-        list.add(menuVo3);
-        list.add(menuVo4);
-
+        List<String> list = authorizeService.getOpCodeList(VisitInfoHolder.getUserId(),appId,state);
         result.setObject(list);
         return result;
     }
