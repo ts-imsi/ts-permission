@@ -5,6 +5,21 @@ function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
 
         var userInfo = $cookieStore.get("USER_INFO");
         var entity = new RightEntity("t_operation", menuObj,$http);
+        var typeName="";
+        if($scope.typeDict!=null&&$scope.typeDict!=""){
+            entity.type=$scope.typeDict.code;
+            if($scope.typeDict.code==1){
+                typeName="菜单权限";
+            }else{
+                typeName="数据权限";
+            }
+
+        }else{
+            if(parentId==0){
+                entity.type="1";
+                typeName="菜单权限";
+            }
+        }
 
         entity.appId = userInfo.app_id;
         entity.operator = userInfo.pkid;
@@ -18,6 +33,10 @@ function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
                     head: menuObj.name,
                     url: menuObj.url,
                     px: menuObj.px,
+                    url:menuObj.url,
+                    type:typeName,
+                    icon:menuObj.icon,
+                    translate:menuObj.translate,
                     pkid: pkid
                 };
                 need2InsertMenu.subMenus = {};

@@ -11,7 +11,25 @@
 					</tr>
 					<tr ng-show="currentTabId != 0">
 						<td>
-							<label>目录链接(*):</label><input type="text" ng-model="operationObj.url" />
+							<label>目录链接(*):</label><input ng-required="currentTabId != 0" type="text" ng-model="operationObj.url" />
+						</td>
+					</tr>
+					<tr ng-show="currentTabId == 0">
+						<td>
+							<label>权限类型:</label>
+							<select  ng-model="typeDict_ls" ng-options="typeDict_ls.name  for typeDict_ls in typeList_ls"></select>
+						</td>
+					</tr>
+					<tr ng-show="currentTabId == 0">
+						<td>
+							<label>图标样式:</label>
+							<input type="text" ng-required="currentTabId == 0"  ng-model="operationObj.icon" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>本地化:</label>
+							<input type="text" required ng-model="operationObj.translate" />
 						</td>
 					</tr>
                     <tr>
@@ -21,7 +39,7 @@
 			</form>
 		</div>
 		<div class="modal-footer">
-			<button ng-click="save(operationObj)" class="btn btn-primary" ng-disabled="myForm.$invalid">保存</button>
+			<button ng-click="save(operationObj,typeDict_ls)" class="btn btn-primary" ng-disabled="myForm.$invalid">保存</button>
 			<button ng-click="close()" class="btn btn-primary" >取消</button>
 		</div>
 	</script>

@@ -15,7 +15,7 @@
 
     <select id="getMenu" resultType="com.trasen.permission.model.OperationVo" parameterType="String">
         select pkid as pkid,parent_id as parentId,name as name,op_code as opCode,
-        url as url,app_id as appId,operator as operator,px as px
+        url as url,app_id as appId,operator as operator,px as px,icon,`translate`,`type`
         from tb_operation where app_id=#{app_id} order by parent_id,px;
     </select>
 

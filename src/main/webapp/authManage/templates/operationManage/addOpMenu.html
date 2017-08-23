@@ -9,12 +9,31 @@
 			</tr>
 			<tr ng-show="currentTab.pkid != 0">
 				<td>
-					<label>目录链接(*):</label><input type="text" ng-model="menuObj.url" />
+					<label>目录链接(*):</label><input ng-required="currentTab.pkid != 0" type="text" ng-model="menuObj.url" />
 				</td>
 			</tr>
             <tr>
                 <td><label>排序:</label><input required type="text" ng-model="menuObj.px" /></td>
             </tr>
+			<tr ng-show="currentTab.pkid == 0">
+				<td>
+					<label>权限类型:</label>
+					<select  ng-model="typeDict"   ng-options="typeDict.name  for typeDict in typeList"></select>
+
+				</td>
+			</tr>
+			<tr ng-show="currentTab.pkid == 0">
+				<td>
+					<label>图标样式:</label>
+					<input type="text" ng-required="currentTab.pkid == 0"  ng-model="menuObj.icon" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>本地化:</label>
+					<input type="text" required ng-model="menuObj.translate" />
+				</td>
+			</tr>
 		</table>
 		<hr>
 		<div class="addMenuButton">

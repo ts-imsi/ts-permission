@@ -31,10 +31,21 @@ angular.module("AuthMenu", []).service("$menu", ["$http", "$q", "$cookieStore", 
             var rootMenu = orginMenus[parentMenusIndex];
 
             for (var i in rootMenu) {
+                var Nametype="";
+                if(rootMenu[i].type=="1"){
+                    Nametype="菜单权限";
+                }else if(rootMenu[i].type=="2"){
+                    Nametype="数据权限";
+                }else{
+                    Nametype="";
+                }
                 var menu = {
                     head: rootMenu[i].name,
                     pkid: rootMenu[i].pkid,
                     px: rootMenu[i].px,
+                    type:Nametype,
+                    icon:rootMenu[i].icon,
+                    translate:rootMenu[i].translate,
                     subMenus: rootMenu[i].subMenus
                 };
                 rootMenu[i] = menu;
@@ -46,6 +57,7 @@ angular.module("AuthMenu", []).service("$menu", ["$http", "$q", "$cookieStore", 
                         pkid: subMenus[j].pkid,
                         parentId: subMenus[j].parentId,
                         url: subMenus[j].url,
+                        translate:subMenus[j].translate,
                         px: subMenus[j].px,
                         operations: subMenus[j].subMenus
                     };

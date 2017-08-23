@@ -17,5 +17,8 @@ public class MenuVo {
     private String name;
     private String url;
     private String opCode;
+    private String icon;
+    private String translate;
+    private String type;
     private List<MenuVo> childrens;
 }

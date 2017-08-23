@@ -63,7 +63,7 @@ var modalController = function ($scope, $modalInstance, $yunatGrid, $rootScope, 
                 // TODO add datasource property
                 var currentDate = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
                 opEntity.created = currentDate;
-                opEntity.modified = currentDate;
+                opEntity.updated = currentDate;
                 opEntity.insert(function (result) {
                     if (count == 1) {
                         alert("新增成功！");
@@ -77,7 +77,7 @@ var modalController = function ($scope, $modalInstance, $yunatGrid, $rootScope, 
             for (var i in opEntitys) {
                 var tableName = modalObj.scope.opTables ? modalObj.scope.opTables[i] : $rootScope.tableName;
                 var opEntity = new Entity(tableName, opEntitys[i]);
-                opEntity.modified = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
+                opEntity.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
                 opEntity.saveOrUpdate(function (result) {
                     if (count == 1) {
                         alert("修改成功！");

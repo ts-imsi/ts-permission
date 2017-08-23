@@ -27,4 +27,7 @@ public class OperationVo {
     private Map<Integer,OperationVo> subMenus;
     private String url;
     private Integer operator;
+    private String icon;
+    private String translate;
+    private String type;
 }

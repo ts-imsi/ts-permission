@@ -77,7 +77,7 @@ function MenuCtrl($scope, $menu, $cookieStore,$window,$http) {
 
         $scope.addTab(tab);
     };
-
+    $scope.typeList=[{"name":"菜单权限","code":"1"},{"name":"数据权限","code":"2"}];
     // 删除目录
     $scope.delMenu = function (groupId) {
         if (confirm("删除目录会同时删除所有子模块，此过程不可逆转，确认删除？")) {
