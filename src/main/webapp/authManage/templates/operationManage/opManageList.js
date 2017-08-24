@@ -101,7 +101,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
     $scope.currentTabId = parentId;
     var type_
     if(typeCode_==1){
-        type_="8";
+        type_="10";
     }else{
         type_="9";
     }
