@@ -105,7 +105,6 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
     $scope.save = function (menuObj,typeDict_ls) {
         var typeName="";
         var typeCode="";
-        alert(typeDict_ls);
         if(typeDict_ls!=null&&typeDict_ls!=""){
             typeCode=typeDict_ls.code;
             if(typeDict_ls.code==1){
@@ -114,11 +113,21 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
                 typeName="数据权限";
             }
         }else{
-            if(parentId==0){
+            console.log(scope.orginMenuData[0][parentId].type);
+            if(scope.orginMenuData[0][parentId].type==null){
                 typeCode="1";
                 typeName="菜单权限";
+            }else{
+                typeName=scope.orginMenuData[0][parentId].type;
+                if(typeName=="菜单权限"){
+                    typeCode="1";
+                }else{
+                    typeCode="2";
+                }
             }
         }
+
+
         if (~title.indexOf("新增")) {
             var entity = new RightEntity("t_operation",null,$http);
             entity.name = menuObj.head;

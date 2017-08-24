@@ -1,10 +1,18 @@
 var parentId;
-var url;
+var typeName_;
+var typeCode_;
 
 function OperationCtrl($scope, $yunatGrid, $yunatModal, $cookieStore,$http) {
 
     parentId = $scope.$parent.currentTab.pkid;
-    url=$scope.$parent.currentTab.url;
+    typeName_=$scope.$parent.currentTab.type;
+    if(typeName_=="菜单权限"){
+        typeCode_="1";
+    }
+    if(typeName_=="数据权限"){
+        typeCode_="2";
+    }
+    console.log(typeCode_);
     $scope.userInfo = $cookieStore.get("USER_INFO");
 
     $yunatGrid.initConfig({
@@ -91,7 +99,13 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
     var title = modalObj.title;
     $scope.title = title;
     $scope.currentTabId = parentId;
-    $http.post("/dynamic/execSql/openCodeList").success(function (result) {
+    var type_
+    if(typeCode_==1){
+        type_="8";
+    }else{
+        type_="9";
+    }
+    $http.get("/dynamic/execSql/openCodeList?type="+type_).success(function (result) {
         if(result.success){
             $scope.codeList=result.data;
         }
@@ -111,8 +125,8 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
             entity.appId = scope.userInfo.app_id;
             entity.operator = scope.userInfo.pkid;
             entity.parentId = parentId;
-            entity.url=url;
-            entity.opCode=codeDict.openCode;
+            entity.opCode=codeDict.code;
+            entity.type=typeCode_;
             entity.created = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.insert(function (result) {
                 if(result.success){
@@ -120,7 +134,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
                     var pkid = result.data.id;
                     var need2InsertMenu = menuObj;
                     need2InsertMenu.pkid = pkid;
-                    need2InsertMenu.opCode=codeDict.openCode;
+                    need2InsertMenu.opCode=codeDict.code;
                     need2InsertMenu.subMenus = {};
                     // 更新数据绑定
                     scope.orginMenuData[parentId][pkid] = need2InsertMenu;
@@ -136,7 +150,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
             var entity = new RightEntity("t_operation", menuObj,$http);
             delete entity.subMenus;
             entity.opCode=codeDict.openCode;
-            entity.url=url;
+            entity.type=typeCode_;
             entity.updated = $filter('date')(new Date(), "yyyy-MM-dd HH:mm:ss");
             entity.update(function (result) {
                 if(result.success){

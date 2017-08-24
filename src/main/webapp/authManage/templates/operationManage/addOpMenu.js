@@ -1,5 +1,4 @@
 function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
-
     $scope.save = function (menuObj) {
         var parentId = $scope.currentTab.pkid;
 
@@ -15,9 +14,16 @@ function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
             }
 
         }else{
-            if(parentId==0){
+            if($scope.orginMenuData[0][parentId].type==null){
                 entity.type="1";
                 typeName="菜单权限";
+            }else{
+                typeName=$scope.orginMenuData[0][parentId].type;
+                if(typeName=="菜单权限"){
+                    entity.type="1";
+                }else{
+                    entity.type="2";
+                }
             }
         }
 

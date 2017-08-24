@@ -1,7 +1,7 @@
 function OpAuthTreeCtrl($scope, $http, $cookieStore, $filter) {
 
     var appId = $cookieStore.get("USER_INFO").app_id;
-    var operator = $cookieStore.get("USER_INFO").operator;
+    var operator = $cookieStore.get("USER_INFO").pkid;
     $scope.$watch('currentRoleId', function (newVal, oldVal) {
         if (newVal !== oldVal) {
             _getRoleOps(newVal, appId);
@@ -16,6 +16,7 @@ function OpAuthTreeCtrl($scope, $http, $cookieStore, $filter) {
             var roleDatas = result.data;
             $scope.ops = {};
             for (var i in roleDatas) {
+                console.log(roleDatas[i].operationId);
                 $scope.ops[roleDatas[i].operationId] = true;
             }
             // 保存$scope.ops的原始状态

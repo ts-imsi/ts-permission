@@ -57,6 +57,7 @@ angular.module("AuthMenu", []).service("$menu", ["$http", "$q", "$cookieStore", 
                         pkid: subMenus[j].pkid,
                         parentId: subMenus[j].parentId,
                         url: subMenus[j].url,
+                        type:Nametype,
                         translate:subMenus[j].translate,
                         px: subMenus[j].px,
                         operations: subMenus[j].subMenus

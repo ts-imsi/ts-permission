@@ -4,7 +4,9 @@ package com.trasen.permission.controller;/**
 
 import com.trasen.permission.common.AppCons;
 import com.trasen.permission.model.OpenCode;
+import com.trasen.permission.model.TwfDict;
 import com.trasen.permission.service.DynamicService;
+import com.trasen.permission.service.TwfDictService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.ws.rs.QueryParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +34,9 @@ public class DynamicController {
 
     @Autowired
     private DynamicService dynamicService;
+
+    @Autowired
+    private TwfDictService twfDictService;
 
     /**
      * 操作
@@ -184,19 +190,16 @@ public class DynamicController {
      * @return map
      */
     @ResponseBody
-    @RequestMapping(value = "/execSql/openCodeList", method = RequestMethod.POST)
-    public Map<String, Object> getUserList(){
+    @RequestMapping(value = "/execSql/openCodeList", method = RequestMethod.GET)
+    public Map<String, Object> getUserList(@QueryParam("type") String type){
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("success", true);
         result.put("msg","");
-        List<String> list = AppCons.getOpCodeList();
-        List<OpenCode> openCodeList=new ArrayList<OpenCode>();
-        for(String opencode : list){
-            OpenCode openCode=new OpenCode();
-            openCode.setOpenCode(opencode);
-            openCodeList.add(openCode);
+        List<TwfDict> list=new ArrayList<TwfDict>();
+        if(type!=null){
+             list = twfDictService.getTwfDictForType(Integer.valueOf(type));
         }
-        result.put("data", openCodeList);
+        result.put("data", list);
         return result;
     }
 
