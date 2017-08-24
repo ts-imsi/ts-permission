@@ -69,6 +69,10 @@ public class SubordinateService {
                 resultMap.put(personnelRule.getPerId(),personnelRule);
             }
         }
+        //排除自己
+        if(resultMap.get(personnel.getPerId())!=null){
+            resultMap.remove(personnel.getPerId());
+        }
         list.addAll(resultMap.keySet().stream().map(resultMap::get).collect(Collectors.toList()));
         return list;
     }
