@@ -1,4 +1,11 @@
 function AddMenuCtrl($scope, $filter, $cookieStore,$http) {
+
+    var pkid=$scope.currentTab.pkid;
+    if(pkid!=0){
+        $scope.typeNamel_=$scope.orginMenuData[0][pkid].type;
+    }
+
+
     $scope.save = function (menuObj) {
         var parentId = $scope.currentTab.pkid;
 

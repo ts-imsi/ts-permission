@@ -2,6 +2,11 @@
 <div ng-controller="AddMenuCtrl" class="addMenu">
 	<form name="myForm" ng-submit="save(menuObj)">
 		<table>
+			<tr ng-show="currentTab.pkid != 0">
+				<td>
+					<label>目录权限:</label><span ng-bind="typeNamel_"></span>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					<label>目录名称(*):</label><input required type="text" ng-model="menuObj.name" />
@@ -31,7 +36,7 @@
 			<tr>
 				<td>
 					<label>本地化:</label>
-					<input type="text" required ng-model="menuObj.translate" />
+					<input type="text" ng-required="currentTab.pkid == 0" ng-model="menuObj.translate" />
 				</td>
 			</tr>
 		</table>

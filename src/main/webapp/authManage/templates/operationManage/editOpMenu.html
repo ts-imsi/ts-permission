@@ -6,6 +6,11 @@
 		<div class="modal-body" style="width:310px;">
 			<form name="myForm">
 				<table>
+					<tr ng-show="currentTabId != 0">
+						<td>
+							<label>目录权限:</label><span ng-bind="typeNamel_"></span>
+						</td>
+					</tr>
 					<tr>
 						<td><label>目录名称(*):</label><input required type="text" ng-model="operationObj.head" /></td>
 					</tr>
@@ -33,7 +38,7 @@
 						</td>
 					</tr>
                     <tr>
-                        <td><label>排序:</label><input required type="text" ng-model="operationObj.px"/></td>
+                        <td><label>排序:</label><input ng-required="currentTabId == 0" type="text" ng-model="operationObj.px"/></td>
                     </tr>
 				</table>
 			</form>

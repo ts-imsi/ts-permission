@@ -102,6 +102,11 @@ var OpMenuModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$http)
     var title = modalObj.title;
     $scope.title = title;
     $scope.currentTabId = parentId;
+    if(parentId!=0){
+        $scope.typeNamel_=scope.orginMenuData[0][parentId].type;
+    }
+
+
     $scope.save = function (menuObj,typeDict_ls) {
         var typeName="";
         var typeCode="";

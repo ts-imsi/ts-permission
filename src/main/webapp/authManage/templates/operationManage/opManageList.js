@@ -6,6 +6,7 @@ function OperationCtrl($scope, $yunatGrid, $yunatModal, $cookieStore,$http) {
 
     parentId = $scope.$parent.currentTab.pkid;
     typeName_=$scope.$parent.currentTab.type;
+
     if(typeName_=="菜单权限"){
         typeCode_="1";
     }
@@ -94,7 +95,7 @@ var OpManageModalCtrl = function ($scope, $modalInstance, modalObj, $filter,$htt
 
     // 绑定表单对象
     $scope.operationObj = modalObj.operationObj;
-
+    $scope.typeNameM_=typeName_;
     var scope = modalObj.scope;
     var title = modalObj.title;
     $scope.title = title;

@@ -6,6 +6,11 @@
 		<div class="modal-body" style="width:340px;">
 			<form name="myForm">
 				<table>
+					<tr >
+						<td>
+							<label>目录权限:</label><span ng-bind="typeNameM_"></span>
+						</td>
+					</tr>
 					<tr>
                         <td>
                             <label>操作名(*):</label><input required type="text" ng-model="operationObj.name" value={{operationObj.name}} style="width:58%;" />
