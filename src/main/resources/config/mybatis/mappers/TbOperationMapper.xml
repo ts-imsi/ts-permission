@@ -6,7 +6,7 @@
         select o.* from tb_operation o
         join tb_role_operation ro on o.pkid=ro.operation_id
         join tb_user_role ur on ur.role_id=ro.role_id
-        where ur.user_id=#{userId} and o.app_id=#{appId} and o.op_code is null
+        where ur.user_id=#{userId} and o.app_id=#{appId} and o.op_code is null and o.type=1
     </select>
 
     <select id="getOpCodeList" parameterType="Map" resultType="String">
@@ -17,7 +17,7 @@
     </select>
 
     <select id="getParentOper" parameterType="String" resultType="com.trasen.permission.model.OperationVo">
-        select * from tb_operation where url=#{url} limit 1
+        select * from tb_operation where url=#{url} and op_code is null limit 1
     </select>
 
 

@@ -6,7 +6,6 @@ import com.trasen.permission.model.MenuVo;
 import com.trasen.permission.model.TbPersonnel;
 import com.trasen.permission.service.AuthorizeService;
 import com.trasen.permission.service.SubordinateService;
-import com.trasen.permission.utils.OpenCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zhangxiahui on 17/8/21.
@@ -66,16 +62,10 @@ public class AuthorizeController {
     public Result getSubordinateList(@PathVariable String appId){
         logger.info("===权限系统:获取页面操作权限====["+ VisitInfoHolder.getUserId()+"]====["+appId+"]===");
         Result result = new Result();
-        Map<String,String> param=new HashMap<String,String>();
-        String userId=VisitInfoHolder.getUserId();
-        if(VisitInfoHolder.getUserId()==null){
-            userId="3";
-        }
-        param.put("userId",userId);
-        param.put("appId",appId);
-        param.put("sub_tag", OpenCodeUtil.SUB_TAG);
-        param.put("sub_dept",OpenCodeUtil.SUB_DEPT);
-        List<TbPersonnel> tbPersonnelList= subordinateService.getSubordinateList(param);
+        result.setMessage("查询成功");
+        result.setStatusCode(1);
+        result.setSuccess(true);
+        List<TbPersonnel> tbPersonnelList= subordinateService.getSubordinateList(VisitInfoHolder.getUserId(),appId);
         System.out.println(tbPersonnelList.size());
         result.setObject(tbPersonnelList);
         result.setSuccess(true);

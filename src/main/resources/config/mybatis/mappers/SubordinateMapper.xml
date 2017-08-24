@@ -2,41 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trasen.permission.dao.SubordinateMapper">
-
-    <select id="selectTbperson" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-        select * from tb_personnel per,t_user tu  where per.per_id=tu.per_id and tu.pkid=#{userId}
+    <select id="getSubOper" parameterType="Map" resultType="String">
+        select o.op_code from tb_operation o
+        join tb_role_operation ro on o.pkid=ro.operation_id
+        join tb_user_role ur on ur.role_id=ro.role_id
+        where ur.user_id=#{userId} and o.app_id=#{appId} and (o.op_code=#{sub_tag} or o.op_code=#{sub_dept})
     </select>
 
-    <select id="selectSubordinate" parameterType="java.util.Map" resultType="com.trasen.permission.model.UserRoleVo">
-        SELECT
-	    tur.*,oper.op_code
-        FROM
-	    tb_user_role tur
-        LEFT JOIN tb_role_operation ro_op ON ro_op.role_id = tur.role_id
-        LEFT JOIN tb_operation oper ON ro_op.operation_id=oper.pkid
-        WHERE
-        tur.user_id=#{userId} and  tur.app_id=#{appId} and (oper.op_code=#{sub_tag} or oper.op_code=#{sub_dept})
-    </select>
-    <select id="selectSubordinateOrgUser"  resultType="com.trasen.permission.model.TbPersonnel">
-      select distinct  per.* from tb_personnel per where per.tag_code like CONCAT('%','PERSON','%')
-        <foreach item="item" index="index" collection="array">
-           OR per.tag_code like CONCAT('%',#{item},'%')
-        </foreach>
+    <select id="getPersonToUserId" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
+        select p.* from tb_personnel p join t_user u on p.per_id=u.per_id where u.pkid=#{userId}
     </select>
 
-    <select id="selectSubordinateOrgTreeUser" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-        select distinct  per.* from tb_personnel per where  per.tag_code like CONCAT('%',#{deptId},'%')
+    <select id="queryTagToPerson" parameterType="String" resultType="String">
+        select tag_id from tb_tag_personnel where work_num=#{workNum}
     </select>
 
-    <select id="selectTagPerson" parameterType="String" resultType="com.trasen.permission.model.TbTagPersonnel">
-        select tag.pkid,tag.tag_id,tag.tag_name,tag.work_num from tb_tag_personnel tag,tb_personnel per,t_user tu where tag.work_num=per.work_num and tu.per_id=per.per_id and tu.pkid=#{userId}
+    <select id="queryPersonAll" resultType="com.trasen.permission.model.TbPersonnel">
+        select p.*,t.tag_id from tb_personnel p left join tb_tag_personnel t on p.work_num=t.work_num where p.is_vaild=1
     </select>
-    
-    <select id="selectTagCodePerson" parameterType="String" resultType="com.trasen.permission.model.TbPersonnel">
-        select distinct per.* from tb_tag_personnel tag,tb_personnel per where per.work_num=tag.work_num and tag.tag_id in
-        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </select>
-    
 </mapper>

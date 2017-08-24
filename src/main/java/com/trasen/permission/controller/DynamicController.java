@@ -2,9 +2,9 @@ package com.trasen.permission.controller;/**
  * Created by zhangxiahui on 15/3/19.
  */
 
+import com.trasen.permission.common.AppCons;
 import com.trasen.permission.model.OpenCode;
 import com.trasen.permission.service.DynamicService;
-import com.trasen.permission.utils.OpenCodeUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -189,7 +189,7 @@ public class DynamicController {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("success", true);
         result.put("msg","");
-        List<String> list = OpenCodeUtil.getOpenCodeList();
+        List<String> list = AppCons.getOpCodeList();
         List<OpenCode> openCodeList=new ArrayList<OpenCode>();
         for(String opencode : list){
             OpenCode openCode=new OpenCode();
