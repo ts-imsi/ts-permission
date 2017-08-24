@@ -49,9 +49,10 @@ public class AuthorizeController {
     public Result getOperList(@PathVariable String appId,@PathVariable String state) {
         logger.info("===权限系统:获取页面操作权限====["+ VisitInfoHolder.getUserId()+"]====["+state+"]===");
         Result result = new Result();
-        result.setMessage("查询成功");
         result.setStatusCode(1);
         result.setSuccess(true);
+        String message = authorizeService.getTagName(VisitInfoHolder.getUserId());
+        result.setMessage(message);
         List<String> list = authorizeService.getOpCodeList(VisitInfoHolder.getUserId(),appId,state);
         result.setObject(list);
         return result;

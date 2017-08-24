@@ -1,8 +1,10 @@
 package com.trasen.permission.service;
 
+import com.trasen.permission.dao.SubordinateMapper;
 import com.trasen.permission.dao.TbOperationMapper;
 import com.trasen.permission.model.MenuVo;
 import com.trasen.permission.model.OperationVo;
+import com.trasen.permission.model.TbPersonnel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,9 @@ public class AuthorizeService {
 
     @Autowired
     TbOperationMapper tbOperationMapper;
+
+    @Autowired
+    SubordinateMapper subordinateMapper;
 
     /**
      * 通过userId获取用户菜单权限
@@ -68,6 +73,14 @@ public class AuthorizeService {
             }
         }
         return new ArrayList<>();
+    }
+
+    public String getTagName(String userId){
+        TbPersonnel personnel = subordinateMapper.getPersonToUserId(userId);
+        if(personnel!=null){
+            return personnel.getDepName();
+        }
+        return "none";
     }
 
 
