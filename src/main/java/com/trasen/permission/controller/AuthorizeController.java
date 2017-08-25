@@ -73,6 +73,21 @@ public class AuthorizeController {
         return result;
     }
 
+    @ResponseBody
+    @RequestMapping(value="/{appId}/getSubPerson/{userId}", method = RequestMethod.GET)
+    public Result getSubPerson(@PathVariable String appId,@PathVariable String userId){
+        logger.info("===权限系统:获取页面操作权限[无鉴权]====["+ userId+"]====["+appId+"]===");
+        Result result = new Result();
+        result.setMessage("查询成功");
+        result.setStatusCode(1);
+        result.setSuccess(true);
+        List<TbPersonnel> tbPersonnelList= subordinateService.getSubordinateList(userId,appId);
+        System.out.println(tbPersonnelList.size());
+        result.setObject(tbPersonnelList);
+        result.setSuccess(true);
+        return result;
+    }
+
 
 
 
