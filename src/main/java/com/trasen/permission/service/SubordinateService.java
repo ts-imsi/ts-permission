@@ -60,11 +60,11 @@ public class SubordinateService {
 
         List<TbPersonnel> personnelList = subordinateMapper.queryPersonAll();
         for(TbPersonnel personnelRule : personnelList){
-            if(personnelRule.getTagCode()!=null&&ruleList.contains(personnelRule.getTagCode())){
+            if(personnelRule.getTagCode()!=null&&listContains(ruleList,personnelRule.getTagCode())){
                 //符合规则加入人员
                 resultMap.put(personnelRule.getPerId(),personnelRule);
             }
-            if(personnelRule.getTagId()!=null&&ruleList.contains(personnelRule.getTagId())){
+            if(personnelRule.getTagId()!=null&&listContains(ruleList,personnelRule.getTagId())){
                 //符合规则加入人员
                 resultMap.put(personnelRule.getPerId(),personnelRule);
             }
@@ -75,6 +75,17 @@ public class SubordinateService {
         }
         list.addAll(resultMap.keySet().stream().map(resultMap::get).collect(Collectors.toList()));
         return list;
+    }
+
+    public boolean listContains(List<String> ruleList,String tagCode){
+        if(tagCode!=null&&ruleList!=null&&ruleList.size()>0){
+            for(String rule : ruleList){
+                if(tagCode.indexOf(rule)!=-1){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
