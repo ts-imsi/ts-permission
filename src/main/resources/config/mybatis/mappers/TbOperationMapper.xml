@@ -10,7 +10,7 @@
     </select>
 
     <select id="getOpCodeList" parameterType="Map" resultType="String">
-        select o.op_code from tb_operation o
+        select DISTINCT o.op_code from tb_operation o
         join tb_role_operation ro on o.pkid=ro.operation_id
         join tb_user_role ur on ur.role_id=ro.role_id
         where ur.user_id=#{userId} and o.app_id=#{appId} and o.parent_id = #{parentId} and o.op_code is not null

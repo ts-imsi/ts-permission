@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhangxiahui on 17/8/23.
@@ -45,7 +46,10 @@ public class AuthorizeService {
 
         MenuVo parentMenuVo = new MenuVo();
         parentMenuVo.setPkid(0);
-        for(MenuVo menuVo : list){
+
+        List<MenuVo> menuVoList = menuVoMap.keySet().stream().map(menuVoMap::get).collect(Collectors.toList());
+
+        for(MenuVo menuVo : menuVoList){
             if(menuVo.getParentId()==0){
                 parentMenuVo.getChildrens().add(menuVo);
             }else{
