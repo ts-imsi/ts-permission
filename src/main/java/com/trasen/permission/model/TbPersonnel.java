@@ -30,4 +30,8 @@ public class TbPersonnel {
     private String entryDate;//入职时间
     private String picture;
     private String tagId;
+    private String openId;
+    private String signinType;
+    private Date signinTime;
+    private String signinAddress;
 }
