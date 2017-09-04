@@ -62,11 +62,11 @@ public class SubordinateService {
         for(TbPersonnel personnelRule : personnelList){
             if(personnelRule.getTagCode()!=null&&listContains(ruleList,personnelRule.getTagCode())){
                 //符合规则加入人员
-                resultMap.put(personnelRule.getPerId(),personnelRule);
+                putPersonnelToRule(resultMap,personnelRule);
             }
             if(personnelRule.getTagId()!=null&&listContains(ruleList,personnelRule.getTagId())){
                 //符合规则加入人员
-                resultMap.put(personnelRule.getPerId(),personnelRule);
+                putPersonnelToRule(resultMap,personnelRule);
             }
         }
         //排除自己
@@ -75,6 +75,19 @@ public class SubordinateService {
         }
         list.addAll(resultMap.keySet().stream().map(resultMap::get).collect(Collectors.toList()));
         return list;
+    }
+
+    public void putPersonnelToRule(Map<String,TbPersonnel> resultMap,TbPersonnel personnelRule){
+        if(personnelRule.getSigninType()==null){
+            personnelRule.setSigninTypeStr("未签到");
+        }else if("inEx".equals(personnelRule.getSigninType())){
+            personnelRule.setSigninTypeStr("公司迟到");
+        }else if("signIn".equals(personnelRule.getSigninType())){
+            personnelRule.setSigninTypeStr("公司签到");
+        }else if("sign".equals(personnelRule.getSigninType())){
+            personnelRule.setSigninTypeStr("外出考勤");
+        }
+        resultMap.put(personnelRule.getPerId(),personnelRule);
     }
 
     public boolean listContains(List<String> ruleList,String tagCode){

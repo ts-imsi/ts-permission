@@ -34,4 +34,5 @@ public class TbPersonnel {
     private String signinType;
     private Date signinTime;
     private String signinAddress;
+    private String signinTypeStr;
 }
