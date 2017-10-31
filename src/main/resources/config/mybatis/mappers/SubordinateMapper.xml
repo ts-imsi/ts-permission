@@ -18,7 +18,7 @@
     </select>
 
     <select id="queryPersonAll" resultType="com.trasen.permission.model.TbPersonnel">
-        select p.*,t.tag_id,u.open_id,a.signin_type,a.signin_time,a.signin_address from tb_personnel p
+        select p.*,t.tag_id,u.open_id,a.signin_type,a.signin_time,a.signin_address,a.remark from tb_personnel p
         left join tb_tag_personnel t on p.work_num=t.work_num
         left join tb_weixin_user u on u.work_num=p.work_num
         left join (select * from tb_attence  where attence_date=date(now())) a on a.work_num=p.work_num
