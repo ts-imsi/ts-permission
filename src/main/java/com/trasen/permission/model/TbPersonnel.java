@@ -35,4 +35,5 @@ public class TbPersonnel {
     private Date signinTime;
     private String signinAddress;
     private String signinTypeStr;
+    private String remark;
 }
